@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foucault Private Limited - LEO PNT Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --foucault-brown: #4A2C2A;
+            --foucault-deep: #2D1B1A;
+            --space-dark: #0A0E27;
+            --space-blue: #1a2332;
+            --orbital-gold: #C9A961;
+            --accent-amber: #E8B86D;
+            --text-light: #E8E6E3;
+            --text-muted: #A8A6A3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: linear-gradient(135deg, var(--space-dark) 0%, var(--space-blue) 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 5%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            height: 100px;
+            width: auto;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orbital-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--orbital-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 80px;
+            z-index: 10;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--orbital-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--foucault-brown) 0%, var(--foucault-deep) 100%);
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            border: 2px solid var(--orbital-gold);
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            position: relative;
+            padding: 100px 5%;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--orbital-gold);
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .about-text h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .stat-card {
+            background: rgba(26, 35, 50, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--orbital-gold);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--orbital-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Technology Section */
+        .tech-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-card {
+            background: rgba(26, 35, 50, 0.6);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(201, 169, 97, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .tech-card:hover::before {
+            opacity: 1;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--orbital-gold);
+            box-shadow: 0 15px 40px rgba(201, 169, 97, 0.3);
+        }
+
+        .tech-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--foucault-brown) 0%, var(--orbital-gold) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .tech-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .tech-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            background: rgba(10, 14, 39, 0.95);
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(201, 169, 97, 0.2);
+            z-index: 10;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--orbital-gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--orbital-gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 169, 97, 0.1);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .logo-img {
+                height: 80px;
+                width: 80px;
+                object-fit: contain;
+                background: white;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Orbital decoration */
+        .orbital-line {
+            position: absolute;
+            border: 1px dashed rgba(201, 169, 97, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: rotate 60s linear infinite;
+        }
+
+        .orbital-1 {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: 5%;
+        }
+
+        .orbital-2 {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: 10%;
+            animation-duration: 45s;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Stars Background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Orbital Decorations -->
+    <div class="orbital-line orbital-1"></div>
+    <div class="orbital-line orbital-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="./logo/88900438.png" alt="Foucault Logo" class="logo-img">
+                <div class="logo-text">FOUCAULT</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#technology">TECHNOLOGY</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Precision Navigation<br>From Low Earth Orbit</h1>
+            <p class="hero-subtitle">Next-Generation PNT Solutions</p>
+            <p class="hero-description">
+                Foucault Private Limited delivers cutting-edge satellite-based positioning, navigation, and timing solutions. 
+                By integrating LEO satellite constellations with advanced IMU technology, we provide unparalleled accuracy 
+                and reliability for critical applications worldwide.
+            </p>
+            <a href="#about" class="cta-button">DISCOVER MORE</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">ABOUT FOUCAULT</h2>
+        <p class="section-subtitle">Pioneering the future of precision positioning and navigation</p>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Leading Innovation in LEO PNT</h3>
+                <p>
+                    At Foucault Private Limited, we're revolutionizing positioning, navigation, and timing through 
+                    advanced Low Earth Orbit satellite technology. Our mission is to deliver precision PNT solutions 
+                    that exceed the capabilities of traditional GNSS systems.
+                </p>
+                <p>
+                    By seamlessly integrating satellite-based positioning with Inertial Measurement Unit (IMU) technology, 
+                    we create robust, resilient navigation systems that perform even in the most challenging environments. 
+                    Our solutions serve industries ranging from autonomous vehicles to aerospace, maritime navigation, 
+                    and critical infrastructure.
+                </p>
+                <p>
+                    Named after Léon Foucault, whose pendulum demonstrated Earth's rotation, we embody the same 
+                    commitment to precision measurement and scientific excellence.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime Reliability</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">&lt;10cm</div>
+                    <div class="stat-label">Positioning Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Global Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">LEO</div>
+                    <div class="stat-label">Satellite Network</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology">
+        <h2 class="section-title">TECHNOLOGY</h2>
+        <p class="section-subtitle">Advanced solutions built on cutting-edge satellite and sensor fusion technology</p>
+
+        <div class="tech-grid">
+            <div class="tech-card">
+                <div class="tech-icon">🛰️</div>
+                <h3>LEO Satellite Positioning</h3>
+                <p>
+                    Our Low Earth Orbit satellite constellation provides high-accuracy positioning with reduced 
+                    latency and improved signal strength compared to traditional GNSS. LEO satellites offer 
+                    faster revisit rates and enhanced coverage in urban canyons and challenging environments.
+                </p>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">⚡</div>
+                <h3>IMU Integration</h3>
+                <p>
+                    Seamless integration of Inertial Measurement Units with satellite positioning creates a 
+                    robust hybrid navigation system. Our sensor fusion algorithms ensure continuous positioning 
+                    even during satellite signal interruptions, delivering uninterrupted navigation performance.
+                </p>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">🎯</div>
+                <h3>Precision Timing</h3>
+                <p>
+                    Ultra-precise timing synchronization across networks and systems. Our PNT solutions provide 
+                    nanosecond-level timing accuracy essential for telecommunications, financial transactions, 
+                    power grid management, and scientific research applications.
+                </p>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">🔒</div>
+                <h3>Resilient Architecture</h3>
+                <p>
+                    Built-in redundancy and anti-jamming capabilities ensure continuous operation in contested 
+                    environments. Our multi-constellation approach and advanced signal processing provide 
+                    exceptional resilience against interference and signal degradation.
+                </p>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">📡</div>
+                <h3>Real-Time Processing</h3>
+                <p>
+                    Advanced algorithms process satellite and IMU data in real-time, delivering instantaneous 
+                    position, velocity, and attitude information. Our edge computing architecture minimizes 
+                    latency for time-critical applications and autonomous systems.
+                </p>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-icon">🌍</div>
+                <h3>Global Coverage</h3>
+                <p>
+                    Comprehensive worldwide coverage including polar regions and oceanic areas. Our LEO 
+                    constellation design ensures consistent service availability and performance across 
+                    all latitudes, supporting truly global navigation requirements.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Foucault Private Limited</h4>
+                <p>Pioneering precision navigation and timing solutions through advanced LEO satellite technology and IMU integration.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#technology">Technology</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: anuragraghuvanshi@foucault.in</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Foucault Private Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Generate animated stars
+        const starsContainer = document.getElementById('stars');
+        const numStars = 100;
+
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 4 + 's';
+            star.style.opacity = Math.random() * 0.7 + 0.3;
+            starsContainer.appendChild(star);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all tech cards and stat cards
+        document.querySelectorAll('.tech-card, .stat-card').forEach(card => {
